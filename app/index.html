@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Empire Hub - AI Orchestrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+    <div class="flex h-screen">
+        <!-- القائمة الجانبية للفريق -->
+        <div class="w-1/4 bg-slate-800 p-4 border-l border-slate-700 flex flex-col justify-between">
+            <div>
+                <h1 class="text-xl font-bold text-amber-400 mb-6">👑 طاولة القيادة (CEO)</h1>
+                <h2 class="text-sm font-semibold text-slate-400 mb-3">فريق الذكاء الاصطناعي:</h2>
+                <ul class="space-y-2">
+                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
+                        <span>♊ Gemini (COO)</span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    </li>
+                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
+                        <span>🤖 ChatGPT (Marketing)</span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    </li>
+                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
+                        <span>🧠 Claude (Dev & Legal)</span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    </li>
+                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
+                        <span>🔍 Perplexity (Research)</span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-xs text-slate-500 border-t border-slate-700 pt-3">
+                Project: Australia Empire Hub v1.0
+            </div>
+        </div>
+
+        <!-- منطقة الشات الرئيسية -->
+        <div class="flex-1 flex flex-col">
+            <div class="p-4 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="font-bold text-lg">محادثات العصف الذهني (الهوية، التسعير، والتكاليف)</h2>
+                <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30">سريع ولطيف على الـ RAM</span>
+            </div>
+
+            <!-- عرض الرسائل -->
+            <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-4">
+                <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
+                    <span class="font-bold text-amber-400">Gemini (COO):</span>
+                    <p class="mt-1 text-slate-200">أهلاً يا سيادة المدير عمر! الشات الموحد جاهز. النماذج تنتظر أول موضوع للعصف الذهني: الهوية التجارية، التسعير وحساب الأجور في أستراليا (AUD)، أم واجهة الخدمات؟</p>
+                </div>
+            </div>
+
+            <!-- إدخال الأوامر -->
+            <div class="p-4 bg-slate-800 border-t border-slate-700 flex gap-2">
+                <input type="text" id="user-input" placeholder="اكتب فكرة أو وجه سؤالاً للفريق..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500">
+                <button onclick="sendMessage()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg transition">إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            if (!input.value.trim()) return;
+
+            // إضافة رسالة المستخدم
+            const userMsg = `<div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl">
+                <span class="font-bold text-amber-400">CEO (عمر محسن):</span>
+                <p class="mt-1 text-slate-200">${input.value}</p>
+            </div>`;
+            chatBox.innerHTML += userMsg;
+
+            // محاكاة استجابة الفريق
+            setTimeout(() => {
+                const aiMsg = `<div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
+                    <span class="font-bold text-blue-400">الفريق الرقمي (Orchestrator):</span>
+                    <p class="mt-1 text-slate-200">تم استلام توجيهك وجاري توزيع المحاور بين النماذج لتجهيز الرد والحلول البرمجية والتسويقية...</p>
+                </div>`;
+                chatBox.innerHTML += aiMsg;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 600);
+
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
