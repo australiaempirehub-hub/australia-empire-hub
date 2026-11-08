@@ -3,87 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australia Empire Hub - AI Orchestrator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Australia Empire Hub - طاولة القيادة</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background-color: #1e293b; border-left: 1px solid #334155; display: flex; flex-direction: column; padding: 20px; }
+        .sidebar h2 { font-size: 18px; color: #fbbf24; margin-bottom: 20px; text-align: center; }
+        .team-member { padding: 12px; margin-bottom: 10px; background: #334155; border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .team-member:hover { background: #475569; color: #fbbf24; }
+        
+        /* Main Chat Area */
+        .main-chat { flex: 1; display: flex; flex-direction: column; background: #0f172a; }
+        .chat-header { padding: 15px 20px; background: #1e293b; border-bottom: 1px solid #334155; font-weight: bold; font-size: 16px; color: #38bdf8; }
+        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        
+        .message { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .message.ceo { background: #3b82f6; color: white; align-self: flex-start; }
+        .message.ai { background: #334155; color: #f1f5f9; align-self: flex-end; border: 1px solid #475569; }
+        
+        /* Input Area */
+        .chat-input-area { padding: 15px 20px; background: #1e293b; border-top: 1px solid #334155; display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; outline: none; font-size: 14px; }
+        .chat-input-area button { padding: 0 20px; background: #fbbf24; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .chat-input-area button:hover { background: #f59e0b; }
+    </style>
 </head>
-<body class="bg-slate-900 text-white font-sans">
-    <div class="flex h-screen">
-        <!-- القائمة الجانبية للفريق -->
-        <div class="w-1/4 bg-slate-800 p-4 border-l border-slate-700 flex flex-col justify-between">
-            <div>
-                <h1 class="text-xl font-bold text-amber-400 mb-6">👑 طاولة القيادة (CEO)</h1>
-                <h2 class="text-sm font-semibold text-slate-400 mb-3">فريق الذكاء الاصطناعي:</h2>
-                <ul class="space-y-2">
-                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
-                        <span>♊ Gemini (COO)</span>
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                    </li>
-                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
-                        <span>🤖 ChatGPT (Marketing)</span>
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                    </li>
-                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
-                        <span>🧠 Claude (Dev & Legal)</span>
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                    </li>
-                    <li class="p-2 bg-slate-700 rounded flex items-center justify-between">
-                        <span>🔍 Perplexity (Research)</span>
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="text-xs text-slate-500 border-t border-slate-700 pt-3">
-                Project: Australia Empire Hub v1.0
-            </div>
+<body>
+
+    <!-- Main Chat Section -->
+    <div class="main-chat">
+        <div class="chat-header">طاولي القيادة - عصف ذهني إمبراطورية أستراليا</div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai"><strong>Gemini (COO):</strong> أهلاً بك يا سيادة المدير عمر محسن! الشات الموحد جاهز، ونماذج الذكاء الاصطناعي في جاهزية تامة لتنفيذ الأوامر وإدارتها أوتوماتيكياً. اطرح أمرك الأول لنباشر العمل! 🚀</div>
         </div>
-
-        <!-- منطقة الشات الرئيسية -->
-        <div class="flex-1 flex flex-col">
-            <div class="p-4 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
-                <h2 class="font-bold text-lg">محادثات العصف الذهني (الهوية، التسعير، والتكاليف)</h2>
-                <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30">سريع ولطيف على الـ RAM</span>
-            </div>
-
-            <!-- عرض الرسائل -->
-            <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-4">
-                <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                    <span class="font-bold text-amber-400">Gemini (COO):</span>
-                    <p class="mt-1 text-slate-200">أهلاً يا سيادة المدير عمر! الشات الموحد جاهز. النماذج تنتظر أول موضوع للعصف الذهني: الهوية التجارية، التسعير وحساب الأجور في أستراليا (AUD)، أم واجهة الخدمات؟</p>
-                </div>
-            </div>
-
-            <!-- إدخال الأوامر -->
-            <div class="p-4 bg-slate-800 border-t border-slate-700 flex gap-2">
-                <input type="text" id="user-input" placeholder="اكتب فكرة أو وجه سؤالاً للفريق..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500">
-                <button onclick="sendMessage()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg transition">إرسال</button>
-            </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="اكتب فكرتك أو وجه سؤالاً للفريق..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">إرسال</button>
         </div>
     </div>
 
+    <!-- Sidebar / Team Members -->
+    <div class="sidebar">
+        <h2>👑 طاولة القيادة (CEO)</h2>
+        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 10px;">فريق الذكاء الاصطناعي:</div>
+        <div class="team-member" onclick="selectMember('Gemini (COO)')">🟡 Gemini (COO)</div>
+        <div class="team-member" onclick="selectMember('ChatGPT (Marketing)')">🤖 ChatGPT (Marketing)</div>
+        <div class="team-member" onclick="selectMember('Claude (Dev & Legal)')">🧠 Claude (Dev & Legal)</div>
+        <div class="team-member" onclick="selectMember('Perplexity (Research)')">🔍 Perplexity (Research)</div>
+        <div style="margin-top: auto; font-size: 11px; color: #64748b; text-align: center;">Project: Australia Empire Hub v1.0</div>
+    </div>
+
     <script>
+        let currentTarget = "الفريق الموحد";
+
+        function selectMember(memberName) {
+            currentTarget = memberName;
+            document.querySelector('.chat-header').innerText = `محادثة خاصة مع: ${memberName}`;
+        }
+
         function sendMessage() {
-            const input = document.getElementById('user-input');
-            const chatBox = document.getElementById('chat-box');
-            if (!input.value.trim()) return;
+            const inputField = document.getElementById('userInput');
+            const messageText = inputField.value.trim();
+            if (!messageText) return;
 
-            // إضافة رسالة المستخدم
-            const userMsg = `<div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl">
-                <span class="font-bold text-amber-400">CEO (عمر محسن):</span>
-                <p class="mt-1 text-slate-200">${input.value}</p>
-            </div>`;
-            chatBox.innerHTML += userMsg;
+            const chatMessages = document.getElementById('chatMessages');
 
-            // محاكاة استجابة الفريق
+            // Add CEO Message
+            const ceoMsg = document.createElement('div');
+            ceoMsg.className = 'message ceo';
+            ceoMsg.innerHTML = `<strong>عمر محسن (CEO):</strong> ${messageText}`;
+            chatMessages.appendChild(ceoMsg);
+
+            inputField.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate AI Team Response
             setTimeout(() => {
-                const aiMsg = `<div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                    <span class="font-bold text-blue-400">الفريق الرقمي (Orchestrator):</span>
-                    <p class="mt-1 text-slate-200">تم استلام توجيهك وجاري توزيع المحاور بين النماذج لتجهيز الرد والحلول البرمجية والتسويقية...</p>
-                </div>`;
-                chatBox.innerHTML += aiMsg;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+                aiMsg.innerHTML = `<strong>${currentTarget}:</strong> تم استلام توجيهك وسيبدأ طاقم الأتمتة بتنفيذ الأمر وتحديث المستودع قريباً بناءً على توجيهاتك يا أسطورة! ⚙️🔥`;
+                chatMessages.appendChild(aiMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
 
-            input.value = '';
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
         }
     </script>
 </body>
